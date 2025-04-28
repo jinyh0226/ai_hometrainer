@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>실시간 포즈 좌표</title>
+</head>
+<body>
+    <h2>실시간 포즈 좌표</h2>
+    <pre id="output">연결 대기 중...</pre>
+
+    <script>
+        const ws = new WebSocket("ws://localhost:8000/ws");
+
+        ws.onopen = () => {
+            document.getElementById("output").innerText = "웹소켓 연결됨. 데이터 수신 대기 중...";
+        };
+
+        ws.onmessage = function(event) {
+            try {
+                const poseData = JSON.parse(event.data);
+                document.getElementById("output").innerText = JSON.stringify(poseData, null, 2);
+            } catch (e) {
+                document.getElementById("output").innerText = "데이터 파싱 오류";
+            }
+        };
+
+        ws.onerror = () => {
+            document.getElementById("output").innerText = "웹소켓 오류 발생!";
+        };
+
+        ws.onclose = () => {
+            document.getElementById("output").innerText = "웹소켓 연결 종료됨";
+        };
+    </script>
+</body>
+</html>

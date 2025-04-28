@@ -1,0 +1,8 @@
+
+파워쉘   redis-server
+cmd     uvicorn app.main:app --reload
+cmd     python collect_pose.py
+
+파워쉘   redis-cli
+127.0.0.1:6379> keys *
+

@@ -1,0 +1,3 @@
+TRUNCATE TABLE pose_landmarks RESTART IDENTITY;
+
+SELECT * FROM pose_landmarks;
